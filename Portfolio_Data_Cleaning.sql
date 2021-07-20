@@ -1,3 +1,5 @@
+-- 1. Create new table for cleaned/transformed data
+
 DROP TABLE IF EXISTS PropertySales_Clean
 GO
 
@@ -11,8 +13,8 @@ CREATE TABLE PropertySales_Clean (
 
 GO
 
--- 1. Unpivot and clean ONS "Residential property sales" dataset.
--- 2. INSERT cleaned data to new table
+-- 2. Unpivot and clean ONS "Residential property sales" dataset.
+-- 3. INSERT cleaned data to new table
 
 INSERT INTO PropertySales_Clean ([Region/Country Code], [Region/Country name], [County/UA name], [Date], [Sales])
 
@@ -20,7 +22,7 @@ SELECT
 [Region/Country Code],
 [Region/Country name],
 [County/UA name],
-CONVERT(date,RIGHT([Year], 8)) AS [Year], --Extract only Month and Year
+CONVERT(date,RIGHT([Year], 8)) AS [Year], --Extract only Month and Year and standardize it
 [Sales]
 
 
@@ -134,7 +136,7 @@ UNPIVOT (
 
 GO
 
--- 3. Select newly created table with cleaned data
+-- 4. Select newly created table with cleaned data
 
 SELECT * FROM PropertySales_Clean
 
