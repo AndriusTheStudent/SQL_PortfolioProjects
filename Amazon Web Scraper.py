@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-# In[214]:
-
-
 # import libraries
+
 from bs4 import BeautifulSoup
 import pandas as pd
 import requests
@@ -14,15 +11,9 @@ import smtplib
 import csv
 
 
-# In[215]:
-
-
 ##STEP 1. Setup URL, Agent Headers and retrieve webpage html
 # connect to website
 # find your agent headers at https://httpbin.org/get
-
-
-# In[ ]:
 
 
 URL = 'https://www.amazon.co.uk/Ninja-Fryer-AF160UK-Litres-Black/dp/B07Y3KDL7R/ref=sr_1_3?crid=39UGX263VQLQ2&dchild=1&keywords=ninja+air+fryer&qid=1629984471&sprefix=ninja+air%2Caps%2C172&sr=8-3'
@@ -50,9 +41,6 @@ print(title)
 print(price)
 
 
-# In[217]:
-
-
 ##STEP 2. Clean up data
 title = title.strip()
 price = price.strip()
@@ -60,10 +48,6 @@ rating = rating.strip()[0:3]
 
 #Add date stamp to track when data been has been scrapped
 today = datetime.date.today()
-
-
-# In[218]:
-
 
 ##STEP 3. Create data-structure to store inforamtion
 
@@ -77,22 +61,7 @@ with open('AmazonProductsScrape.csv', 'w', newline='', encoding='UTF8') as file:
     writer.writerow(header)
     writer.writerow(data)
 
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
+    
 ##STEP 4. Automate scraping task. Put function on timer by using "time" library
 def check_price():
     #Define URL and Agent Headers
@@ -141,12 +110,6 @@ def check_price():
     if(price < 124):
         send_mail()
     
-    
-    
-
-
-# In[ ]:
-
 
 while(True):
     check_price()
@@ -154,15 +117,9 @@ while(True):
     time.sleep(86400)
 
 
-# In[ ]:
-
-
 #Use pandas library to create dataframe to store webscrapper results instead of opening csv file everytime
 df = pd.read_csv(r'C:\Users\amark\AmazonProductsScrape.csv')
 print(df)
-
-
-# In[ ]:
 
 
 #Optional. Setup emailing service to notify user when price dropped to set value.     
